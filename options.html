@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSH Settings - Team Search Hub</title>
+  <style>
+    :root {
+      --md-sys-color-primary: #6750A4;
+      --md-sys-color-on-primary: #FFFFFF;
+      --md-sys-color-primary-container: #EADDFF;
+      --md-sys-color-on-primary-container: #21005D;
+      --md-sys-color-secondary: #625B71;
+      --md-sys-color-on-secondary: #FFFFFF;
+      --md-sys-color-surface: #FEF7FF;
+      --md-sys-color-on-surface: #1D1B20;
+      --md-sys-color-surface-variant: #E7E0EB;
+      --md-sys-color-on-surface-variant: #49454F;
+      --md-sys-color-outline: #79747E;
+      --md-sys-color-error: #B3261E;
+      --md-sys-color-on-error: #FFFFFF;
+      --md-sys-color-error-container: #F9DEDC;
+      --md-sys-color-on-error-container: #410E0B;
+
+      --md-sys-typescale-title-large-font: system-ui, -apple-system, sans-serif;
+      --md-sys-typescale-title-large-size: 22px;
+      --md-sys-typescale-body-medium-size: 14px;
+    }
+
+    body {
+      background-color: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      font-family: var(--md-sys-typescale-title-large-font);
+      margin: 0;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: var(--md-sys-typescale-title-large-size);
+      margin: 0;
+    }
+
+    .card {
+      background-color: var(--md-sys-color-surface-variant);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    /* Outlined Text Field */
+    .field {
+      position: relative;
+      margin-bottom: 20px;
+      margin-top: 8px;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 16px;
+      border: 1px solid var(--md-sys-color-outline);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--md-sys-color-on-surface);
+      font-size: var(--md-sys-typescale-body-medium-size);
+      outline: none;
+    }
+
+    .field label {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 0 4px;
+      background-color: var(--md-sys-color-surface-variant);
+      color: var(--md-sys-color-on-surface-variant);
+      transition: 0.2s ease all;
+      pointer-events: none;
+    }
+
+    .field input:focus ~ label,
+    .field input:not(:placeholder-shown) ~ label {
+      top: -10px;
+      font-size: 12px;
+      color: var(--md-sys-color-primary);
+    }
+
+    .field input:focus {
+      border: 2px solid var(--md-sys-color-primary);
+    }
+
+    .field.error input {
+      border-color: var(--md-sys-color-error);
+    }
+    .field.error label {
+      color: var(--md-sys-color-error);
+    }
+    .error-text {
+      color: var(--md-sys-color-error);
+      font-size: 12px;
+      margin-top: 4px;
+      display: none;
+    }
+    .field.error .error-text {
+      display: block;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 10px 24px;
+      border-radius: 20px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+
+    .btn-secondary {
+      background-color: var(--md-sys-color-secondary);
+      color: var(--md-sys-color-on-secondary);
+    }
+
+    .btn-text {
+      background: transparent;
+      color: var(--md-sys-color-primary);
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    /* List */
+    .engine-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid var(--md-sys-color-outline);
+    }
+
+    .engine-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .import-export {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--md-sys-color-outline);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Team Search Hub Settings</h1>
+    </header>
+
+    <div id="editor" class="card">
+      <h2 style="font-size: 18px; margin-top: 0;">Add / Edit Search Engine</h2>
+      <div class="field" id="field-keyword">
+        <input type="text" id="engine-keyword" placeholder=" ">
+        <label for="engine-keyword">Keyword (e.g. j)</label>
+        <div class="error-text">Keyword already exists!</div>
+      </div>
+      <div class="field">
+        <input type="text" id="engine-name" placeholder=" ">
+        <label for="engine-name">Name (e.g. Jira)</label>
+      </div>
+      <div class="field">
+        <input type="text" id="engine-url" placeholder=" ">
+        <label for="engine-url">URL (use %s for query)</label>
+      </div>
+      <div class="field">
+        <select id="url-preset">
+          <option value="">-- Presets --</option>
+          <option value="https://your-domain.atlassian.net/browse/%s">Jira Issue</option>
+          <option value="https://your-domain.atlassian.net/issues/?jql=text%20~%20%22%s%22">Jira Search (JQL)</option>
+          <option value="https://your-domain.atlassian.net/wiki/search?text=%s">Confluence Search</option>
+        </select>
+      </div>
+      <div class="field">
+        <input type="text" id="engine-pattern" placeholder=" ">
+        <label for="engine-pattern">Regex Pattern (optional)</label>
+      </div>
+      <div class="actions">
+        <button id="save-btn" class="btn btn-primary">Save Engine</button>
+        <button id="clear-btn" class="btn btn-text">Clear</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size: 18px; margin-top: 0;">Engines</h2>
+      <div id="engine-list">
+        <!-- List items will be injected here -->
+      </div>
+    </div>
+
+    <div class="import-export">
+      <button id="export-btn" class="btn btn-secondary">Export JSON</button>
+      <input type="file" id="import-file" style="display: none;">
+      <button id="import-btn" class="btn btn-secondary">Import JSON</button>
+      <select id="import-mode">
+        <option value="add">Add Mode</option>
+        <option value="overwrite">Overwrite Mode</option>
+      </select>
+    </div>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Team Search Hub (TSH)",
+  "version": "0.1.0",
+  "description": "Solo series search extension with Material 3 UI.",
+  "permissions": [
+    "storage",
+    "contextMenus"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "options_page": "options.html",
+  "omnibox": { "keyword": "s" },
+  "action": {
+    "default_title": "Team Search Hub"
+  },
+  "icons": {
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
