@@ -30,6 +30,7 @@ function getMatchedEngines(engines, text) {
   return engines.filter(engine => {
     if (!engine.pattern) return false;
     try {
+      // Use a cache or pre-compile patterns in a real-world scenario if performance is critical
       const regex = new RegExp(engine.pattern);
       return regex.test(text);
     } catch (e) {
@@ -62,6 +63,8 @@ async function updateContextMenus(selectionText = "") {
       id: `engine-${engine.id}`,
       title: `Search ${engine.name} for "%s"`,
       contexts: ["selection"]
+    }, () => {
+      if (chrome.runtime.lastError) console.debug("Menu creation ignored:", chrome.runtime.lastError.message);
     });
   });
 
@@ -71,6 +74,8 @@ async function updateContextMenus(selectionText = "") {
       id: "other-searches",
       title: "Other Searches",
       contexts: ["selection"]
+    }, () => {
+      if (chrome.runtime.lastError) console.debug("Menu creation ignored:", chrome.runtime.lastError.message);
     });
 
     unmatched.forEach(engine => {
@@ -79,6 +84,8 @@ async function updateContextMenus(selectionText = "") {
         parentId: "other-searches",
         title: engine.name,
         contexts: ["selection"]
+      }, () => {
+        if (chrome.runtime.lastError) console.debug("Menu creation ignored:", chrome.runtime.lastError.message);
       });
     });
   }
@@ -101,7 +108,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 });
 
-// Receive selection updates from content script (to be implemented)
+// Listen for selection updates or engine changes
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "SELECTION_CHANGED") {
     updateContextMenus(message.text);

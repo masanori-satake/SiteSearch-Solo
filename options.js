@@ -14,25 +14,42 @@ async function saveEngines(engines) {
   renderList();
 }
 
-function renderList() {
-  getEngines().then(engines => {
-    const list = document.getElementById('engine-list');
-    list.innerHTML = '';
-    engines.forEach(engine => {
-      const item = document.createElement('div');
-      item.className = 'engine-list-item';
-      item.innerHTML = `
-        <div>
-          <strong>${engine.name}</strong> [${engine.keyword}]<br>
-          <small>${engine.url}</small>
-        </div>
-        <div>
-          <button class="btn btn-text" onclick="editEngine('${engine.id}')">Edit</button>
-          <button class="btn btn-text" onclick="deleteEngine('${engine.id}')" style="color: var(--md-sys-color-error);">Delete</button>
-        </div>
-      `;
-      list.appendChild(item);
-    });
+async function renderList() {
+  const engines = await getEngines();
+  const list = document.getElementById('engine-list');
+  list.innerHTML = '';
+  engines.forEach(engine => {
+    const item = document.createElement('div');
+    item.className = 'engine-list-item';
+
+    const info = document.createElement('div');
+    const nameStrong = document.createElement('strong');
+    nameStrong.textContent = engine.name;
+    info.appendChild(nameStrong);
+    info.appendChild(document.createTextNode(` [${engine.keyword}]`));
+    info.appendChild(document.createElement('br'));
+    const urlSmall = document.createElement('small');
+    urlSmall.textContent = engine.url;
+    info.appendChild(urlSmall);
+
+    const actions = document.createElement('div');
+    const editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-text';
+    editBtn.textContent = 'Edit';
+    editBtn.addEventListener('click', () => editEngine(engine.id));
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-text';
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.style.color = 'var(--md-sys-color-error)';
+    deleteBtn.addEventListener('click', () => deleteEngine(engine.id));
+
+    actions.appendChild(editBtn);
+    actions.appendChild(deleteBtn);
+
+    item.appendChild(info);
+    item.appendChild(actions);
+    list.appendChild(item);
   });
 }
 
