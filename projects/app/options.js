@@ -1,4 +1,4 @@
-// options.js - Team Search Hub
+// options.js - SiteSearch-Solo
 
 let currentEditingId = null;
 

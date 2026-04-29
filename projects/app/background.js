@@ -1,5 +1,5 @@
 /**
- * Team Search Hub (TSH) - background.js
+ * SiteSearch-Solo - background.js
  *
  * Material 3 Color Tokens (CSS Variables Reference)
  * -----------------------------------------------

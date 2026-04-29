@@ -1,4 +1,4 @@
-# AGENTS.md for Team Search Hub (TSH)
+# AGENTS.md for SiteSearch-Solo
 
 ## 1. Core Philosophy (Solo Series Heritage)
 
@@ -16,3 +16,20 @@
 
 - **Conflict Awareness:** ユーザーが設定ミス（キーワード重複）に気づけるよう、視覚的な警告（M3準拠のError色）を提示する。
 - **State Feedback:** M3の「State Layer」を模したインタラクションを必ず実装する。
+
+## 4. Communication Policy
+
+- **Language:** 開発者間のコミュニケーション、Issue、Pull Request、コード内のコメント、コミットメッセージはすべて日本語で行う。
+- **Maintainability:** 実装の「なぜ（意図や背景）」を日本語で詳細に記述し、長期的なメンテナンス性を確保する。
+
+## 5. Implementation Rules
+
+- **JSDoc形式の採用:** すべての関数およびクラスには、JSDoc形式で説明、引数、戻り値を記述する。
+- **Google JavaScript Style Guide (日本語版)** に準拠することを原則とする。
+- **正規表現の解説:** 複雑な正規表現には、マッチ対象のURLパターンや文字列の例をコメントで添える。
+
+## 6. Development Environment
+
+- **Unit Test:** Jest + JSDOM (`jest-environment-jsdom`) + `fake-indexeddb` (予定).
+- **E2E Test:** Playwright (予定).
+- **Root Cleanliness:** 開発用の一時ファイルや不要なログがプロジェクトルートに残らないよう留意すること。
