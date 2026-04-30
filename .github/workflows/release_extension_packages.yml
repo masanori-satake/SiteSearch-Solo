@@ -62,6 +62,9 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: python -m playwright install-deps chromium
 
+      - name: Install Node.js Playwright Browsers
+        run: npx playwright install chromium
+
       - name: Build packages
         run: npm run build
 

@@ -10,7 +10,7 @@
     "lint": "markdownlint '**/*.md'"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.0",
+    "@playwright/test": "^1.49.1",
     "glob": "^13.0.6",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^30.3.0",
