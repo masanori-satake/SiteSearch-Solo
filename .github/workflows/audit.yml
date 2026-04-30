@@ -55,10 +55,10 @@ jobs:
           README.md
 
     - name: 1. ルートディレクトリのクリーンネス確認 (Root Directory Cleanliness)
-      run: python3 scripts/check_root_files.py
+      run: python scripts/check_root_files.py
 
     - name: 2. プロジェクトポリシー確認 (Project Policy Guard)
-      run: python3 scripts/verify_project_policies.py
+      run: python scripts/verify_project_policies.py
 
     - name: 3. PRコメント使用言語確認 (PR Language Check)
       if: github.event_name == 'pull_request'
@@ -66,24 +66,24 @@ jobs:
         PR_TITLE: ${{ github.event.pull_request.title }}
         PR_BODY: ${{ github.event.pull_request.body }}
       run: |
-        printf '%s' "$PR_TITLE" | python3 scripts/language_check.py
+        printf '%s' "$PR_TITLE" | python scripts/language_check.py
         if [ -n "$PR_BODY" ]; then
-          printf '%s' "$PR_BODY" | python3 scripts/language_check.py
+          printf '%s' "$PR_BODY" | python scripts/language_check.py
         else
           echo "PR body is empty. Skipping description language check."
         fi
 
     - name: 4. バージョンの一貫性確認 (Version Consistency)
       if: steps.changed-files.outputs.any_changed == 'true' || github.event_name == 'workflow_dispatch'
-      run: python3 scripts/check_version.py
+      run: python scripts/check_version.py
 
     - name: 5. バージョン影響評価 (Version Impact)
       if: (github.event_name == 'pull_request' && steps.changed-files.outputs.any_changed == 'true') || github.event_name == 'workflow_dispatch'
-      run: python3 scripts/verify_version_impact.py
+      run: python scripts/verify_version_impact.py
 
     - name: 6. 外部OSS依存関係なしの確認 (No Production Dependencies)
       id: verify-no-deps
-      run: python3 scripts/audit_production_dependencies.py
+      run: python scripts/audit_production_dependencies.py
 
     - name: 7. 透明性レポートのサマリー作成 (Transparency Report Summary)
       if: always()

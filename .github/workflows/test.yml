@@ -50,16 +50,19 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-playwright-
 
+    - name: Install Python Playwright
+      run: pip install playwright==1.58.0
+
     - name: Install Playwright Browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: npx playwright install chromium --with-deps
+      run: python -m playwright install chromium --with-deps
 
     - name: Install Playwright Dependencies (if cache hit)
       if: steps.playwright-cache.outputs.cache-hit == 'true'
-      run: npx playwright install-deps chromium
+      run: python -m playwright install-deps chromium
 
     - name: Generate Icons
-      run: python3 scripts/generate_png_icons.py
+      run: python scripts/generate_png_icons.py
 
     - name: Run Unit Tests
       run: npm run test
