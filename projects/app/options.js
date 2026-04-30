@@ -149,7 +149,7 @@ document.getElementById('export-btn').addEventListener('click', async () => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'sitesearch-solo-engines.json';
+  a.download = 'tsh-engines.json';
   a.click();
   URL.revokeObjectURL(url);
 });

@@ -20,23 +20,12 @@
  * --md-sys-color-on-error-container: #410E0B;
  */
 
-/**
- * キーワードが重複しているかチェックします。
- * @param {Array} engines 検索エンジンのリスト
- * @param {string} keyword チェックするキーワード
- * @param {string|null} excludeId 除外するID（編集中の場合）
- * @returns {boolean} 重複している場合はtrue
- */
+// Core Logic: Keyword duplicate check
 function isKeywordDuplicate(engines, keyword, excludeId = null) {
   return engines.some(engine => engine.keyword === keyword && engine.id !== excludeId);
 }
 
-/**
- * テキストにマッチする検索エンジンを正規表現パターンに基づいてフィルタリングします。
- * @param {Array} engines 検索エンジンのリスト
- * @param {string} text 評価するテキスト
- * @returns {Array} マッチした検索エンジンのリスト
- */
+// Core Logic: Regex matching
 function getMatchedEngines(engines, text) {
   return engines.filter(engine => {
     if (!engine.pattern) return false;
@@ -51,19 +40,13 @@ function getMatchedEngines(engines, text) {
   });
 }
 
-/**
- * ストレージから検索エンジンのリストを取得します。
- * @returns {Promise<Array>} 検索エンジンのリスト
- */
+// Storage handling
 async function getEngines() {
   const result = await chrome.storage.local.get('engines');
   return result.engines || [];
 }
 
-/**
- * 選択テキストに基づいてコンテキストメニューを更新します。
- * @param {string} selectionText 現在選択されているテキスト
- */
+// Context Menu Update Logic
 async function updateContextMenus(selectionText = "") {
   await chrome.contextMenus.removeAll();
   const engines = await getEngines();

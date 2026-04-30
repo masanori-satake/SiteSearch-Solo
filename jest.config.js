@@ -1,6 +1,5 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  testMatch: ['**/tests/**/*.test.js'],
+  testMatch: ['**/tests/unit/**/*.test.js'],
   collectCoverageFrom: ['projects/app/**/*.js'],
-  testPathIgnorePatterns: ['/tests/e2e/'],
 };
