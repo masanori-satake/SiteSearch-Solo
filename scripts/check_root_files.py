@@ -10,6 +10,8 @@ ALLOWED_FILES = {
     "README.md",
     "SECURITY.md",
     ".markdownlint.json",
+    "jest.config.js",
+    "playwright.config.js",
 }
 
 ALLOWED_DIRS = {
