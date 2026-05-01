@@ -1,0 +1,20 @@
+{
+  "name": "sitesearch-solo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Solo series search extension with Material 3 UI.",
+  "scripts": {
+    "test": "jest",
+    "test:e2e": "playwright test",
+    "build": "python scripts/build.py",
+    "lint": "markdownlint '**/*.md'"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "glob": "^13.0.6",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "markdown-it": "^14.1.1",
+    "markdownlint-cli": "^0.48.0"
+  }
+}

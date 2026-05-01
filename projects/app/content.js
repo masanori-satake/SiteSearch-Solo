@@ -1,4 +1,4 @@
-// content.js - Team Search Hub
+// content.js - SiteSearch-Solo
 document.addEventListener('mouseup', () => {
   const selection = window.getSelection().toString().trim();
   if (selection) {

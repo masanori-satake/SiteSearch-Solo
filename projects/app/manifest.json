@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Team Search Hub (TSH)",
+  "name": "SiteSearch-Solo",
   "version": "0.1.0",
   "description": "Solo series search extension with Material 3 UI.",
   "permissions": [
@@ -19,7 +19,7 @@
   "options_page": "options.html",
   "omnibox": { "keyword": "s" },
   "action": {
-    "default_title": "Team Search Hub"
+    "default_title": "SiteSearch-Solo"
   },
   "icons": {
     "48": "icons/icon48.png",
