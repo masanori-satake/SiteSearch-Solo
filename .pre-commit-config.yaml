@@ -17,7 +17,7 @@ repos:
         args: [--no-eslintrc, --env, browser, --env, webextensions, --env, es2021]
 
 -   repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.50.0
+    rev: v0.50.1
     hooks:
     -   id: markdownlint
         args: ["--config", ".markdownlint.json"]
